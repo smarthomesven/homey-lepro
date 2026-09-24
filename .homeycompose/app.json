@@ -20,6 +20,7 @@
   "bugs": {
     "url": "https://github.com/smarthomesven/homey-lepro/issues"
   },
+  "homeyCommunityTopicId": 159951,
   "brandColor": "#FB7000",
   "permissions": [
     "homey:wireless:ble"
