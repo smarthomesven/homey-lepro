@@ -1,0 +1,8 @@
+{
+    "pair": {
+        "save": "Save",
+        "saving": "Saving",
+        "noemail": "Please enter an email address",
+        "nopassword": "Please enter a password"
+    }
+}

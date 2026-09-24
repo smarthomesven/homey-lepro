@@ -1,0 +1,36 @@
+{
+  "id": "com.lepro",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Lepro"
+  },
+  "description": {
+    "en": "Designed for Future Spaces"
+  },
+  "category": [
+    "lights"
+  ],
+  "source": "https://github.com/smarthomesven/homey-lepro",
+  "bugs": {
+    "url": "https://github.com/smarthomesven/homey-lepro/issues"
+  },
+  "brandColor": "#FB7000",
+  "permissions": [
+    "homey:wireless:ble"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Sven Serlier",
+    "email": "sven@dypodex.com"
+  }
+}
