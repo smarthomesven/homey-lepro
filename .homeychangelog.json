@@ -13,5 +13,8 @@
   },
   "1.1.1": {
     "en": "Added dynamic URL selection and updated dependencies"
+  },
+  "1.1.2": {
+    "en": "Use the US API for Mexico"
   }
 }
