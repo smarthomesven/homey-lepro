@@ -10,5 +10,8 @@
   },
   "1.1.0": {
     "en": "Added BG1"
+  },
+  "1.1.1": {
+    "en": "Added dynamic URL selection and updated dependencies"
   }
 }
