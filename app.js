@@ -69,7 +69,7 @@ module.exports = class LeproApp extends Homey.App {
           throw new Error('IP geolocation response did not include a country');
         }
 
-        if (country.toUpperCase() === 'US') region = 'na';
+        if (['US', 'MX'].includes(country.toUpperCase())) region = 'na';
       } catch (error) {
         this.log('Unable to determine API region; defaulting to EU:', error.message);
       }
