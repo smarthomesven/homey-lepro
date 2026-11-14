@@ -8,7 +8,6 @@ const path = require('path');
 const EventEmitter = require('events');
 const HomeyPush = require('./lib/push');
 
-const API_BASE = 'https://api-eu-iot.lepro.com';
 const APP_VERSION = '1.0.9.263';
 
 function commonHeaders(token) {
@@ -33,6 +32,7 @@ module.exports = class LeproApp extends Homey.App {
 
   async onInit() {
     this.log('Lepro app initializing');
+    if (this.homey.settings.get('apiDeviceHost')) this.log('Using custom API device host:', this.homey.settings.get('apiDeviceHost'));
     this.push = new HomeyPush(this);
     await this.push.startPush();
 
@@ -59,6 +59,27 @@ module.exports = class LeproApp extends Homey.App {
     }
   }
 
+  async getApiBaseUrl() {
+    if (!this.apiBaseUrl) {
+      let region = 'eu';
+      try {
+        const response = await axios.get('https://ipinfo.io/json');
+        const country = response.data.country;
+        if (typeof country !== 'string' || !country.trim()) {
+          throw new Error('IP geolocation response did not include a country');
+        }
+
+        if (country.toUpperCase() === 'US') region = 'na';
+      } catch (error) {
+        this.log('Unable to determine API region; defaulting to EU:', error.message);
+      }
+
+      this.apiBaseUrl = `https://api-${region}-iot.lepro.com`;
+    }
+
+    return this.apiBaseUrl;
+  }
+
   // ---------------------------------------------------------------------
   // Auth
   // ---------------------------------------------------------------------
@@ -68,8 +89,9 @@ module.exports = class LeproApp extends Homey.App {
    * Called from the driver's pairing flow.
    */
   async login(username, password) {
+    const apiBaseUrl = await this.getApiBaseUrl();
     const res = await axios.post(
-      `${API_BASE}/user/login`,
+      `${apiBaseUrl}/user/login`,
       new URLSearchParams({ username, password }).toString(),
       { headers: commonHeaders(null) },
     );
@@ -102,11 +124,12 @@ module.exports = class LeproApp extends Homey.App {
     const token = this.getToken();
     if (!token) throw new Error('No auth token — login first');
 
+    const apiBaseUrl = await this.getApiBaseUrl();
     this.secret = this.secret || this.homey.settings.get('secret');
     this.uid = this.uid || this.homey.settings.get('uid');
 
     // 1. Profile → mqtt host/port/cert URL/root CA URL
-    const profileRes = await axios.get(`${API_BASE}/user/profile`, {
+    const profileRes = await axios.get(`${apiBaseUrl}/user/profile`, {
       headers: commonHeaders(token),
     });
     if (profileRes.data.code !== 0) {

@@ -18,13 +18,14 @@ module.exports = class MyDriver extends Homey.Driver {
       try {
         const email = data.email;
         const password = data.password;
+        const apiBaseUrl = await this.homey.app.getApiBaseUrl();
 
         const regionData = qs.stringify({
           account: email,
           timestamp: Math.floor(Date.now() / 1000)
         });
 
-        const urlResponse = await axios.post('https://api-eu-iot.lepro.com/user/region', regionData, {
+        const urlResponse = await axios.post(`${apiBaseUrl}/user/region`, regionData, {
           headers: {
             'App-Name': 'Lepro',
             'App-Version': '1.0.9.263',
@@ -54,7 +55,7 @@ module.exports = class MyDriver extends Homey.Driver {
           fcmToken: null
         });
 
-        const loginResponse = await axios.post('https://api-eu-iot.lepro.com/user/login', loginData, {
+        const loginResponse = await axios.post(`${apiBaseUrl}/user/login`, loginData, {
           headers: {
             'App-Name': 'Lepro',
             'App-Version': '1.0.9.263',
@@ -104,13 +105,14 @@ module.exports = class MyDriver extends Homey.Driver {
       try {
         const email = data.email;
         const password = data.password;
+        const apiBaseUrl = await this.homey.app.getApiBaseUrl();
 
         const regionData = qs.stringify({
           account: email,
           timestamp: Math.floor(Date.now() / 1000)
         });
 
-        const urlResponse = await axios.post('https://api-eu-iot.lepro.com/user/region', regionData, {
+        const urlResponse = await axios.post(`${apiBaseUrl}/user/region`, regionData, {
           headers: {
             'App-Name': 'Lepro',
             'App-Version': '1.0.9.263',
@@ -140,7 +142,7 @@ module.exports = class MyDriver extends Homey.Driver {
           fcmToken: null
         });
 
-        const loginResponse = await axios.post('https://api-eu-iot.lepro.com/user/login', loginData, {
+        const loginResponse = await axios.post(`${apiBaseUrl}/user/login`, loginData, {
           headers: {
             'App-Name': 'Lepro',
             'App-Version': '1.0.9.263',
@@ -191,7 +193,8 @@ module.exports = class MyDriver extends Homey.Driver {
    */
   async onPairListDevices() {
     this.log("Pairing devices");
-    const getFamilyListResponse = await axios.get(`https://api-eu-iot.lepro.com/family/list/timestamp/${Math.floor(Date.now() / 1000)}`, {
+    const apiBaseUrl = await this.homey.app.getApiBaseUrl();
+    const getFamilyListResponse = await axios.get(`${apiBaseUrl}/family/list/timestamp/${Math.floor(Date.now() / 1000)}`, {
       headers: {
         'App-Name': 'Lepro',
         'App-Version': '1.0.9.263',
@@ -215,7 +218,7 @@ module.exports = class MyDriver extends Homey.Driver {
     const devices = [];
 
     for (const family of familyList) {
-      const getDeviceListResponse = await axios.get(`https://api-eu-iot.lepro.com/v3/device/list/fid/${family.fid}/timestamp/${Math.floor(Date.now() / 1000)}`, {
+      const getDeviceListResponse = await axios.get(`${apiBaseUrl}/v3/device/list/fid/${family.fid}/timestamp/${Math.floor(Date.now() / 1000)}`, {
         headers: {
           'App-Name': 'Lepro',
           'App-Version': '1.0.9.263',
