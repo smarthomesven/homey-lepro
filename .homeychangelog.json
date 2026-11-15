@@ -16,5 +16,8 @@
   },
   "1.1.2": {
     "en": "Use the US API for Mexico"
+  },
+  "1.1.3": {
+    "en": "Added B1 bulb support"
   }
 }
