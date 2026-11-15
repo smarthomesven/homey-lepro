@@ -38,6 +38,59 @@
   "drivers": [
     {
       "name": {
+        "en": "B1"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_saturation",
+        "light_temperature",
+        "light_hue",
+        "light_mode"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/b1/assets/images/small.png",
+        "large": "/drivers/b1/assets/images/large.png",
+        "xlarge": "/drivers/b1/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "notice"
+        },
+        {
+          "id": "login"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login"
+        }
+      ],
+      "id": "b1"
+    },
+    {
+      "name": {
         "en": "B3"
       },
       "class": "light",
